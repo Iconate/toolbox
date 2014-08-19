@@ -5,15 +5,15 @@
 
   Test:
 
-  1c0111001f010100061a024b53535009181c (decode = "KSSP")
+  1c0111001f010100061a024b53535009181c (decoded = "KSSP")
 
   ... after hex decoding, and when XOR'd against:
 
-  686974207468652062756c6c277320657965 (decode = "hit the bull's eye")
+  686974207468652062756c6c277320657965 (decoded = "hit the bull's eye")
 
   ... should produce:
 
-  746865206b696420646f6e277420706c6179
+  746865206b696420646f6e277420706c6179 (decoded = "the kid don't play")
 =end
 
 def xor(param1, param2)
@@ -27,4 +27,4 @@ def text_xor()
   return xor(param1, param2) === result
 end
 
-puts text_xor()
+#puts text_xor()
