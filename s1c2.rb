@@ -17,6 +17,9 @@
 =end
 
 def xor(param1, param2)
+  if param1.length != param2.length
+    raise StandardError, 'Parameters must be equal length'
+  end
   return (param1.to_i(16) ^ param2.to_i(16)).to_s(16)
 end
 
