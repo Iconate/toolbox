@@ -39,11 +39,6 @@ def freq_analysis(some_string)
   return hash
 end
 
-require_relative "s1c2"
-require_relative "s1c1"
-result = repeated_char_xor(hexstring,bin_to_hex("C"))
-almost= hex_to_bin(result)
-puts freq_analysis(almost)
 
 
 
