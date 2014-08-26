@@ -19,7 +19,7 @@ def bin_to_hex(s)
 end
 
 def hex_to_bin(s)
-  s.scan(/../).map { |x| x.hex }.pack('c*')
+  s.scan(/../).map { |x| x.hex.chr }.join
 end
 
 def repeated_char_xor(hex_string, hex_char)
@@ -28,11 +28,16 @@ def repeated_char_xor(hex_string, hex_char)
 end
 
 def freq_analysis(some_string)
-  #initialize  character array
+  #initialize character array
   char_arr =  some_string.split(//).uniq
   hash = {}
   char_arr.each do |x|
     hash[x] = 0
+  end
+  
+  some_string.each_char do |x|
+    curr = hash[x]
+    hash[x] = curr + 1
   end
 
   #count occurances
@@ -43,7 +48,7 @@ require_relative "s1c2"
 require_relative "s1c1"
 result = repeated_char_xor(hexstring,bin_to_hex("C"))
 almost= hex_to_bin(result)
-puts freq_analysis(almost)
+#puts freq_analysis(almost)
 
 
 
