@@ -20,14 +20,13 @@ def xor(param1, param2)
   if param1.length != param2.length
     raise StandardError, 'Parameters must be equal length'
   end
-  return (param1.to_i(16) ^ param2.to_i(16)).to_s(16)
+  return (param1.to_i(16) ^ param2.to_i(16)).to_s(16).rjust(param1.length, '0')
 end
 
-def text_xor()
+def test_xor()
   param1 = "1c0111001f010100061a024b53535009181c"
   param2 = "686974207468652062756c6c277320657965"
   result = "746865206b696420646f6e277420706c6179"
   return xor(param1, param2) === result
 end
 
-#puts text_xor()

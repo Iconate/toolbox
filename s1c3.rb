@@ -22,8 +22,10 @@ def hex_to_bin(s)
   s.scan(/../).map { |x| x.hex.chr }.join
 end
 
-def repeated_char_xor(hex_string, hex_char)
-  repeated_char = hex_char * (hex_string.length/hex_char.length)
+def single_xor(hex_string, char)
+  require_relative('s1c2')
+  length = hex_string.length
+  repeated_char = (bin_to_hex(char) * length)[0..length-1]
   return xor(hex_string, repeated_char)
 end
 
@@ -34,7 +36,7 @@ def freq_analysis(some_string)
   char_arr.each do |x|
     hash[x] = 0
   end
-  
+
   some_string.each_char do |x|
     curr = hash[x]
     hash[x] = curr + 1
