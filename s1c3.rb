@@ -22,30 +22,63 @@ def hex_to_bin(s)
   s.scan(/../).map { |x| x.hex.chr }.join
 end
 
-def repeated_char_xor(hex_string, hex_char)
-  repeated_char = hex_char * (hex_string.length/hex_char.length)
-  return xor(hex_string, repeated_char)
+class String
+  def alpha?
+    !!match(/^[[:alnum:]]+$/)
+  end
 end
 
-def freq_analysis(some_string)
+# hex_char
+
+def single_xor(hex_string, char)
+  require_relative('s1c2.rb')
+  str_len = hex_string.length
+  repeated_string = (bin_to_hex(char) * str_len).slice!(0..str_len - 1)
+  return xor(hex_string, repeated_string)
+end
+
+def score(bin_string)
   #initialize character array
-  char_arr =  some_string.split(//).uniq
+  char_arr =  bin_string.split(//).uniq
+
   hash = {}
   char_arr.each do |x|
+    if x.alpha? || x.match(" ")
     hash[x] = 0
-  end
-  
-  some_string.each_char do |x|
-    curr = hash[x]
-    hash[x] = curr + 1
+    end
   end
 
-  #count occurances
-  return hash
+  score = 0
+  bin_string.each_char do |x|
+    if x.alpha? || x.match(" ")
+    score = score + 1
+    hash[x] = hash[x] + 1
+    end
+
+  end
+
+  #for details
+  #puts hash
+  return score
 end
 
-
-
-
-
+def full_score(some_string)
+  best_score = 0;
+  index = 0;
+  for i in 65..122
+    #puts "Testing decimal value: " + i.to_s(10) + ", as character: "+ i.chr
+    xor_result = single_xor(some_string, i.chr)
+    #puts "Hex result is:" + xor_result
+    bin_result = hex_to_bin(xor_result)
+    puts "Binary result is:" + bin_result
+    i_score = score(bin_result)
+    puts "Score is:" + i_score.to_s(10)
+    if i_score > best_score
+      best_score = i_score
+      index = i
+    end  end
+#puts "Best score: " + best_score.to_s(10)
+#puts "At index: " + index.to_s(10)
+  return { 'best_score' => best_score, 'best_dec' => index }
+end
 

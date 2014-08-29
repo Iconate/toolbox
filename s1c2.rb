@@ -16,9 +16,10 @@
   746865206b696420646f6e277420706c6179 (decoded = "the kid don't play")
 =end
 
+#hexstrings
 def xor(param1, param2)
   if param1.length != param2.length
-    raise StandardError, 'Parameters must be equal length'
+    raise StandardError, 'Parameters must be equal length. Param 1 = ' + param1.length.to_s(10) + ", Param 2 = " + param2.length.to_s(10)
   end
   return (param1.to_i(16) ^ param2.to_i(16)).to_s(16)
 end
